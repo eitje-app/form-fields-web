@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react'
+import React, {Component, Fragment, useRef} from 'react'
 import {Select as AntSelect, Input as AntInput, InputNumber as AntInputNumber, DatePicker as AntDatePicker, Popover, Switch as AntSwitch} from 'antd'
 import moment from 'moment'
 import {useFormField, usePicker, makeField} from '@eitje/form'
@@ -14,7 +14,8 @@ export const Input = (props) => {
   return (
       <div>
         {label && label}
-        <InputEl {...rest} value={value} className={classNames} onChange={e => props.onChange(e.target.value)}/>
+        <InputEl {...rest} value={value} 
+                 className={classNames} onChange={e => props.onChange(e.target.value)}/>
         {error && error}
       </div>
     )
@@ -100,13 +101,28 @@ DropdownPicker = makeField(DropdownPicker)
 const defaultFormat = "DD-MM-YYYY"
 
 
-let DatePicker = ({innerClass, onChange, value, ...rest}) => {
+const test = (picker) => {
+  debugger
+}
+
+let DatePicker = ({innerClass, onChange, value, readOnly, ...rest}) => {
   const val = value ? moment(value, defaultFormat) : val
+  const condProps = {}
+  if(readOnly) {
+    condProps['open'] = false
+    condProps['allowClear'] = false
+  }
+
  return (
-  <AntDatePicker format={defaultFormat} placeholder="Select date.." className={innerClass}
-                  {...rest} value={val} onChange={(date, dateString) => onChange(dateString) }/>
+  
+  <Fragment>
+    <AntDatePicker {...condProps} readOnly inputReadOnly format={defaultFormat} placeholder="Select date.." className={innerClass}
+                    {...rest} value={val} onChange={(date, dateString) => onChange(dateString) }/>
+
+  </Fragment>
                  
                  )
+
 }
 
 
@@ -115,6 +131,12 @@ let DatePicker = ({innerClass, onChange, value, ...rest}) => {
 DatePicker = makeField(DatePicker)
 
 export {DropdownPicker, DatePicker}
+
+
+
+
+
+// 3 form smaken: editable, readonly & disabled. 
 
 
 
