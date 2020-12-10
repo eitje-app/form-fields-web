@@ -3,23 +3,19 @@ import {Select as AntSelect, Input as AntInput, InputNumber as AntInputNumber, D
 import moment from 'moment'
 import {useFormField, usePicker, makeField} from '@eitje/form'
 
-export const Input = (props) => {
-  const {className = "", value, secure, ...rest} = props
-  const {disabled, label, error} = useFormField(props) 
+let Input = (props) => {
+  const {value, secure, ...rest} = props
   const InputEl = secure ? AntInput.Password : AntInput
-  const classNames = [error && 'has-error', className].filter(
-    Boolean,
-  ).join(" ")
 
   return (
-      <div>
-        {label && label}
         <InputEl {...rest} value={value} 
-                 className={classNames} onChange={e => props.onChange(e.target.value)}/>
-        {error && error}
-      </div>
+                 onChange={e => props.onChange(e.target.value)}/>
     )
 }
+
+Input = makeField(Input)
+
+
 
 
 
@@ -57,17 +53,16 @@ export const PopoverPicker = props => {
 }
 
 
-export const Switch = props => {
-  const {containerStyle = {} } = props
-  const {value, disabled, label, error} = useFormField(props)
+
+
+let Switch = props => {
+  const {value} = props
   return (
-    <div style={{opacity: disabled ? 0.2 : 1, ...containerStyle}}>
-      {label && label}
       <AntSwitch {...props} checked={!!value} />
-      {error && error}
-    </div>
   )
 }
+
+Switch = makeField(Switch)
 
 const searchOpts = {
   filterOption: (input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0,
@@ -101,10 +96,6 @@ DropdownPicker = makeField(DropdownPicker)
 const defaultFormat = "DD-MM-YYYY"
 
 
-const test = (picker) => {
-  debugger
-}
-
 let DatePicker = ({innerClass, onChange, value, readOnly, ...rest}) => {
   const val = value ? moment(value, defaultFormat) : val
   const condProps = {}
@@ -130,7 +121,8 @@ let DatePicker = ({innerClass, onChange, value, readOnly, ...rest}) => {
 
 DatePicker = makeField(DatePicker)
 
-export {DropdownPicker, DatePicker}
+
+export {DropdownPicker, DatePicker, Input, Switch}
 
 
 
