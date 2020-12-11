@@ -93,7 +93,7 @@ let DropdownPicker = props => {
 DropdownPicker = makeField(DropdownPicker)
 
 
-const defaultFormat = "DD-MM-YYYY"
+const defaultFormat = ["DD-MM-YYYY", 'YYYY-MM-DD']
 
 
 let DatePicker = ({innerClass, onChange, value, readOnly, ...rest}) => {
