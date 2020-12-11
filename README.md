@@ -12,8 +12,13 @@ These props are shared by every field
 | validate | Custom validation function with (formData, field) as arguments     |     |
 | validateMessage | Custom validation message |     |
 | disabled | disabled can be a bool or a function that takes formData as first argument |     |
-| label | Label to be rendered alongside the field, defaults to showing a p tag with name OR field  |     |
-| containerStyle | style object to be applied to the container  |     |
+| label | label to be rendered alongside the field.  This can be either a string, React node or a function. In case of a function, all element props will be passed to the label  |  p tag with name OR field.   |
+| labelStyle | style to be applied to the default label (NOTE: does only work if you pass nothing or a string) | {} |
+| labelVisible | hides the label when true | false |
+| style | style to be applied to the form element | {} |
+| containerStyle | style object to be applied to the container  |  {opacity: disabled ? 0.2 : 1}   |
+| containerProps | props object to be applied to the container | {} |
+| Container | override container component altogether | div |
 
 
 
