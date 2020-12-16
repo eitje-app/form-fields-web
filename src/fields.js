@@ -69,14 +69,17 @@ const searchOpts = {
   optionFilterProp: 'children'
 }
 
-let DropdownPicker = props => {
-  const {value, disabled, innerClass, label, error, multiple, showSearch, ...rest} = props
-  const {pickerItems, selectedBaseItem, selectedItem} = usePicker(props)
-  let condOpts = showSearch ? searchOpts : {}
 
+
+let DropdownPicker = props => {
+  const {value, disabled, innerClass, label, readOnly, error, multiple, showSearch, style = {}, ...rest} = props
+  const {pickerItems, selectedBaseItem, selectedItems} = usePicker(props)
+  let condOpts = showSearch ? searchOpts : {}
+  if(readOnly) style['pointerEvents'] = 'none'
   return (
       <Fragment>
-          <AntSelect {...condOpts} style={{width: '50%'}} mode={multiple ? 'multiple' : 'default'} 
+
+          <AntSelect {...condOpts} style={{width: '50%', ...style}} mode={multiple ? 'multiple' : 'default'} 
                      {...rest} value={value} className={innerClass}>
             {pickerItems.map(i => 
               <Option key={i.key} value={i.value}> 
