@@ -5,7 +5,7 @@ import {useFormField, usePicker, makeField} from '@eitje/form'
 
 let Input = (props) => {
   const {value, secure, textarea, ...rest} = props
-  const InputEl = textarea : Input.Textarea : secure ? AntInput.Password : AntInput
+  const InputEl = textarea ? Input.Textarea : secure ? AntInput.Password : AntInput
 
   return (
         <InputEl {...rest} value={value} 
