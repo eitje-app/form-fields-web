@@ -3,9 +3,10 @@ import {Select as AntSelect, Input as AntInput, InputNumber as AntInputNumber, D
 import moment from 'moment'
 import {useFormField, usePicker, makeField} from '@eitje/form'
 
+
 let Input = (props) => {
   const {value, secure, textarea, ...rest} = props
-  const InputEl = textarea ? Input.Textarea : secure ? AntInput.Password : AntInput
+  const InputEl = textarea ? AntInput.TextArea : secure ? AntInput.Password : AntInput
 
   return (
         <InputEl {...rest} value={value} 
@@ -51,9 +52,6 @@ export const PopoverPicker = props => {
   </div>  
   )
 }
-
-
-
 
 let Switch = props => {
   const {value} = props
