@@ -16,11 +16,6 @@ let Input = (props) => {
 
 Input = makeField(Input)
 
-
-
-
-
-
 const PopoverContent = ({items, renderItem, value, onChange}) => {
   return (
       <div className='avatarPopOverSelectorSpace' style={{ display: 'flex', flexWrap: 'wrap', width: '200px' }}>
@@ -64,9 +59,10 @@ Switch = makeField(Switch)
 
 const searchOpts = {
   filterOption: (input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0,
-  optionFilterProp: 'children'
-}
+  optionFilterProp: 'children',
+  showSearch: true
 
+}
 
 
 let DropdownPicker = props => {
