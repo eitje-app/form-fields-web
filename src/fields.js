@@ -3,6 +3,11 @@ import {Select as AntSelect, Input as AntInput, InputNumber as AntInputNumber, D
 import moment from 'moment'
 import {useFormField, usePicker, makeField} from '@eitje/form'
 
+const change = (props, val) => {
+  const {formatValue, onChange} = props
+  if(formatValue) val = formatValue(val); 
+  onChange(val)
+}
 
 let Input = (props) => {
   const {value, secure, textarea, ...rest} = props
@@ -10,7 +15,7 @@ let Input = (props) => {
 
   return (
         <InputEl {...rest} value={value} 
-                 onChange={e => props.onChange(e.target.value)}/>
+                 onChange={e => change(props, e.target.value)}/>
     )
 }
 
@@ -61,7 +66,6 @@ const searchOpts = {
   filterOption: (input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0,
   optionFilterProp: 'children',
   showSearch: true
-
 }
 
 
@@ -92,14 +96,27 @@ DropdownPicker = makeField(DropdownPicker)
 
 const defaultFormat = ["DD-MM-YYYY", 'YYYY-MM-DD']
 
+const disabledAfterToday = date => date && date > moment().endOf('day')
+const disabledBeforeToday = date => date && date < moment().endOf('day')
 
-let DatePicker = ({innerClass, onChange, value, readOnly, ...rest}) => {
+let DatePicker = ({innerClass, pastDisabled, futureDisabled, onChange, value, readOnly, ...rest}) => {
   const val = value ? moment(value, defaultFormat) : val
   const condProps = {}
   if(readOnly) {
     condProps['open'] = false
     condProps['allowClear'] = false
   }
+
+  if(futureDisabled) {
+    condProps['disabledDate'] = disabledAfterToday
+  }
+
+  if(pastDisabled) {
+    condProps['disabledDate'] = disabledBeforeToday
+  }
+
+
+
 
  return (
   
