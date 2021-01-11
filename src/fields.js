@@ -1,5 +1,5 @@
 import React, {Component, Fragment, useRef} from 'react'
-import {Select as AntSelect, Input as AntInput, InputNumber as AntInputNumber, DatePicker as AntDatePicker, Popover, Switch as AntSwitch} from 'antd'
+import {Select as AntSelect, Input as AntInput, InputNumber as AntInputNumber, DatePicker as AntDatePicker, Popover, Switch as AntSwitch, TimePicker as AntTimePicker} from 'antd'
 import moment from 'moment'
 import {useFormField, usePicker, makeField} from '@eitje/form'
 
@@ -10,11 +10,10 @@ const change = (props, val) => {
 }
 
 let Input = (props) => {
-  const {value, secure, textarea, ...rest} = props
+  const {value, secure, textarea, innerRef, ...rest} = props
   const InputEl = textarea ? AntInput.TextArea : secure ? AntInput.Password : AntInput
-
   return (
-        <InputEl {...rest} value={value} 
+        <InputEl ref={innerRef} {...rest} value={value} 
                  onChange={e => change(props, e.target.value)}/>
     )
 }
@@ -70,7 +69,7 @@ const searchOpts = {
 
 
 let DropdownPicker = props => {
-  const {value, disabled, innerClass, label, readOnly, error, multiple, showSearch, style = {}, ...rest} = props
+  const {value, innerClass, label, readOnly, error, multiple, showSearch, style = {}, ...rest} = props
   const {pickerItems, selectedBaseItem, selectedItems} = usePicker(props)
   let condOpts = showSearch ? searchOpts : {}
   if(readOnly) style['pointerEvents'] = 'none'
@@ -121,7 +120,7 @@ let DatePicker = ({innerClass, pastDisabled, futureDisabled, onChange, value, re
  return (
   
   <Fragment>
-    <AntDatePicker {...condProps} readOnly inputReadOnly format={defaultFormat} placeholder="Select date.." className={innerClass}
+    <AntDatePicker {...condProps}  format={defaultFormat} placeholder="Select date.." className={innerClass}
                     {...rest} value={val} onChange={(date, dateString) => onChange(dateString) }/>
 
   </Fragment>
@@ -136,7 +135,31 @@ let DatePicker = ({innerClass, pastDisabled, futureDisabled, onChange, value, re
 DatePicker = makeField(DatePicker)
 
 
-export {DropdownPicker, DatePicker, Input, Switch}
+let TimePicker = ({innerClass, pastDisabled, value, futureDisabled, onChange, readOnly, ...rest}) => {
+  const val = value ? moment(value, 'HH:mm') : value
+  const condProps = {}
+  if(readOnly) {
+    condProps['open'] = false
+    condProps['allowClear'] = false
+  }
+
+ return (
+  
+    <AntTimePicker {...condProps} showNow={false} format="HH:mm" placeholder="Select time.." className={innerClass} minuteStep={5}
+                    {...rest} value={val} onChange={(date, dateString) => onChange(dateString) }/>
+
+                 
+                 )
+
+}
+
+
+
+
+TimePicker = makeField(TimePicker)
+
+
+export {DropdownPicker, DatePicker, Input, Switch, TimePicker}
 
 
 
