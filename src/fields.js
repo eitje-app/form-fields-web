@@ -146,7 +146,7 @@ let TimePicker = ({innerClass, pastDisabled, value, futureDisabled, onChange, re
  return (
   
     <AntTimePicker {...condProps} showNow={false} format="HH:mm" placeholder="Select time.." className={innerClass} minuteStep={5}
-                    {...rest} value={val} onChange={(date, dateString) => onChange(dateString) }/>
+                    {...rest} value={val} onSelect={(date) => onChange(date.format("HH:mm")) }/>
 
                  
                  )
