@@ -22,6 +22,7 @@ These props are shared by every field
 | Container | override container component altogether | div |
 | disabledStyle | style to be applied to the container when the field is disabled | {opacity: 0.2} |
 | readOnly | disables the input but does not apply disabled styling | false |
+| submitStrategy | the strategy to submit this field, can either be blur, change or inlineButton (spawns a button next to the input for user confirmation). If left open field can only be submitted through the form. NOTE: submitStrategy only submits the field being changed | null
 
 
 
