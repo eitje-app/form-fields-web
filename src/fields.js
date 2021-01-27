@@ -2,6 +2,7 @@ import React, {Component, Fragment, useRef} from 'react'
 import {Select as AntSelect, Input as AntInput, InputNumber as AntInputNumber, DatePicker as AntDatePicker, Popover, Switch as AntSwitch, TimePicker as AntTimePicker} from 'antd'
 import moment from 'moment'
 import {useFormField, usePicker, makeField} from '@eitje/form'
+import utils from '@eitje/utils'
 
 const change = (props, val) => {
   const {formatValue, onChange} = props
@@ -9,7 +10,7 @@ const change = (props, val) => {
   onChange(val)
 }
 
-let Input = (props) => {
+const BaseInput = (props) => {
   const {value, secure, textarea, innerRef, ...rest} = props
   const InputEl = textarea ? AntInput.TextArea : secure ? AntInput.Password : AntInput
   return (
@@ -18,7 +19,9 @@ let Input = (props) => {
     )
 }
 
-Input = makeField(Input)
+
+
+const Input = makeField(BaseInput)
 
 const PopoverContent = ({items, renderItem, value, onChange}) => {
   return (
@@ -76,7 +79,7 @@ let DropdownPicker = props => {
   return (
       <Fragment>
 
-          <AntSelect {...condOpts} style={{width: '50%', ...style}} mode={multiple ? 'multiple' : 'default'} 
+          <AntSelect {...condOpts} style={{width:'100%', ...style}} mode={multiple ? 'multiple' : 'default'} 
                      {...rest} value={value} className={innerClass}>
             {pickerItems.map(i => 
               <Option key={i.key} value={i.value}> 
@@ -98,7 +101,33 @@ const defaultFormat = ["DD-MM-YYYY", 'YYYY-MM-DD']
 const disabledAfterToday = date => date && date > moment().endOf('day')
 const disabledBeforeToday = date => date && date < moment().endOf('day')
 
-let DatePicker = ({innerClass, pastDisabled, futureDisabled, onChange, value, readOnly, ...rest}) => {
+const isDateDisabled = (date, {disabledAfter, disabledBefore, formData, futureDisabled, pastDisabled}) => {
+  let valid = true
+  
+  let _disabledAfter = utils.funcOrObj(disabledAfter, formData)
+  let _disabledBefore = utils.funcOrObj(disabledBefore, formData)
+
+  if(futureDisabled) valid = disabledAfterToday(date);  
+
+  if(pastDisabled && valid) valid = disabledBeforeToday(date);
+  
+
+  if(_disabledAfter && valid)  {
+    valid = date < moment(_disabledAfter, defaultFormat).startOf('day')
+  }
+
+  if(_disabledBefore && valid)  {
+    valid = date > moment(_disabledBefore, defaultFormat).endOf('day')
+  }
+
+  return !valid;
+} 
+
+
+
+let DatePicker = (props) => {
+  const {innerClass, pastDisabled, disabledBefore, disabledAfter, disabledDate, 
+         futureDisabled, onChange, value, readOnly, formData, defaultPickerValue, ...rest} = props
   const val = value ? moment(value, defaultFormat) : val
   const condProps = {}
   if(readOnly) {
@@ -106,22 +135,15 @@ let DatePicker = ({innerClass, pastDisabled, futureDisabled, onChange, value, re
     condProps['allowClear'] = false
   }
 
-  if(futureDisabled) {
-    condProps['disabledDate'] = disabledAfterToday
-  }
-
-  if(pastDisabled) {
-    condProps['disabledDate'] = disabledBeforeToday
-  }
-
+  const defPickerValue = moment( utils.funcOrObj(defaultPickerValue, formData) )
 
 
 
  return (
   
   <Fragment>
-    <AntDatePicker {...condProps}  format={defaultFormat} placeholder="Select date.." className={innerClass}
-                    {...rest} value={val} onChange={(date, dateString) => onChange(dateString) }/>
+    <AntDatePicker  {...condProps} disabledDate={date => isDateDisabled(date, props)} format={defaultFormat} placeholder="Select date.." className={innerClass}
+                    {...rest} value={val} onChange={(date, dateString) => onChange(dateString) } defaultPickerValue={defPickerValue}/>
 
   </Fragment>
                  
@@ -159,7 +181,7 @@ let TimePicker = ({innerClass, pastDisabled, value, futureDisabled, onChange, re
 TimePicker = makeField(TimePicker)
 
 
-export {DropdownPicker, DatePicker, Input, Switch, TimePicker}
+export {DropdownPicker, DatePicker, Input, BaseInput, Switch, TimePicker}
 
 
 
