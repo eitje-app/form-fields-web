@@ -6,8 +6,13 @@ import utils from '@eitje/utils'
 
 const change = (props, val) => {
   const {formatValue, onChange} = props
-  if(formatValue) val = formatValue(val); 
-  onChange(val)
+  let newVal = val;
+  if(formatValue) {
+    newVal = formatValue(val); 
+    if(_.isNaN(newVal)) return;
+  }
+
+  onChange(newVal)
 }
 
 const BaseInput = (props) => {
@@ -101,16 +106,26 @@ const defaultFormat = ["DD-MM-YYYY", 'YYYY-MM-DD']
 const disabledAfterToday = date => date && date > moment().endOf('day')
 const disabledBeforeToday = date => date && date < moment().endOf('day')
 
-const isDateDisabled = (date, {disabledAfter, disabledBefore, formData, futureDisabled, pastDisabled}) => {
+const isDateDisabled = (date, {disabledAfter, disabledBefore, formData, isStart, isEnd, field, futureDisabled, pastDisabled}) => {
   let valid = true
   
   let _disabledAfter = utils.funcOrObj(disabledAfter, formData)
   let _disabledBefore = utils.funcOrObj(disabledBefore, formData)
 
+
   if(futureDisabled) valid = disabledAfterToday(date);  
 
+  if(isStart && valid && formData['end_date']) {
+    valid = date < moment(formData['end_date'], defaultFormat).startOf('day')
+  }
+
+  if(isEnd && valid && formData['start_date']) {
+    valid = date > moment(formData['start_date'], defaultFormat).startOf('day')
+  }
+
   if(pastDisabled && valid) valid = disabledBeforeToday(date);
-  
+    
+
 
   if(_disabledAfter && valid)  {
     valid = date < moment(_disabledAfter, defaultFormat).startOf('day')
@@ -135,7 +150,7 @@ let DatePicker = (props) => {
     condProps['allowClear'] = false
   }
 
-  const defPickerValue = moment( utils.funcOrObj(defaultPickerValue, formData) )
+  const defPickerValue = moment( utils.funcOrObj(defaultPickerValue || value, formData) )
 
 
 
