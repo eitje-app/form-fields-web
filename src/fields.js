@@ -103,8 +103,8 @@ DropdownPicker = makeField(DropdownPicker)
 
 const defaultFormat = ["DD-MM-YYYY", 'YYYY-MM-DD']
 
-const disabledAfterToday = date => date && date > moment().endOf('day')
-const disabledBeforeToday = date => date && date < moment().endOf('day')
+const disabledAfterToday = date => date && date < moment().endOf('day')
+const disabledBeforeToday = date => date && date > moment().endOf('day')
 
 const isDateDisabled = (date, {disabledAfter, disabledBefore, formData, isStart, isEnd, field, futureDisabled, pastDisabled}) => {
   let valid = true
