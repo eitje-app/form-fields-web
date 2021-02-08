@@ -4,7 +4,7 @@ import moment from 'moment'
 import {useFormField, usePicker, makeField} from '@eitje/form'
 import utils from '@eitje/utils'
 
-const change = (props, val) => {
+const change = (props, val, event) => {
   const {formatValue, onChange} = props
   let newVal = val;
   if(formatValue) {
@@ -12,7 +12,7 @@ const change = (props, val) => {
     if(_.isNaN(newVal)) return;
   }
 
-  onChange(newVal)
+  onChange(newVal, event)
 }
 
 const BaseInput = (props) => {
@@ -20,10 +20,9 @@ const BaseInput = (props) => {
   const InputEl = textarea ? AntInput.TextArea : secure ? AntInput.Password : AntInput
   return (
         <InputEl ref={innerRef} {...rest} value={value} 
-                 onChange={e => change(props, e.target.value)}/>
+                 onChange={e => change(props, e.target.value, e)}/>
     )
 }
-
 
 
 const Input = makeField(BaseInput)
@@ -77,17 +76,25 @@ const searchOpts = {
 
 
 let DropdownPicker = props => {
-  const {value, innerClass, label, readOnly, error, multiple, showSearch, style = {}, ...rest} = props
+  const {value, innerClass, label, readOnly, minSelected = 1, error, multiple, showSearch, style = {}, ...rest} = props
   const {pickerItems, selectedBaseItem, selectedItems} = usePicker(props)
   let condOpts = showSearch ? searchOpts : {}
   if(readOnly) style['pointerEvents'] = 'none'
+
+  const disallowRemove = minSelected && value && value.length <= minSelected
+
+  if(disallowRemove) {
+    condOpts['removeIcon'] = null
+  } 
+
+
   return (
       <Fragment>
 
           <AntSelect {...condOpts} style={{width:'100%', ...style}} mode={multiple ? 'multiple' : 'default'} 
                      {...rest} value={value} className={innerClass}>
             {pickerItems.map(i => 
-              <Option key={i.key} value={i.value}> 
+              <Option disabled={ disallowRemove && value.includes(i.value) } key={i.key} value={i.value}> 
                 {i.label} 
               </Option>)}
            </AntSelect>
