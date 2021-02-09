@@ -157,9 +157,8 @@ let DatePicker = (props) => {
     condProps['allowClear'] = false
   }
 
-  const _defPickerValue = utils.funcOrObj(defaultPickerValue || value, formData)
+  const _defPickerValue = utils.funcOrObj(value || defaultPickerValue, formData)
   const defPickerValue = _defPickerValue && moment(_defPickerValue, defaultFormat)
-
 
  return (
   
