@@ -76,7 +76,7 @@ const searchOpts = {
 
 
 let DropdownPicker = props => {
-  const {value, innerClass, label, readOnly, minSelected = 1, error, multiple, showSearch, style = {}, ...rest} = props
+  const {value, innerClass, label, readOnly, minSelected, error, multiple, showSearch, style = {}, ...rest} = props
   const {pickerItems, selectedBaseItem, selectedItems} = usePicker(props)
   let condOpts = showSearch ? searchOpts : {}
   if(readOnly) style['pointerEvents'] = 'none'
