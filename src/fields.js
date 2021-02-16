@@ -113,7 +113,7 @@ const defaultFormat = ["DD-MM-YYYY", 'YYYY-MM-DD']
 const disabledAfterToday = date => date && date < moment().endOf('day')
 const disabledBeforeToday = date => date && date > moment().endOf('day')
 
-const isDateDisabled = (date, {disabledAfter, disabledBefore, formData, isStart, isEnd, field, futureDisabled, pastDisabled}) => {
+const isDateDisabled = (date, {disabledAfter, disabledBefore, disabledRanges, formData, isStart, isEnd, field, futureDisabled, pastDisabled}) => {
   let valid = true
   
   let _disabledAfter = utils.funcOrObj(disabledAfter, formData)
@@ -133,13 +133,16 @@ const isDateDisabled = (date, {disabledAfter, disabledBefore, formData, isStart,
   if(pastDisabled && valid) valid = disabledBeforeToday(date);
     
 
-
   if(_disabledAfter && valid)  {
     valid = date < moment(_disabledAfter, defaultFormat).startOf('day')
   }
 
   if(_disabledBefore && valid)  {
     valid = date > moment(_disabledBefore, defaultFormat).endOf('day')
+  }
+
+  if(disabledRanges && valid && date) {
+    valid = !disabledRanges.some(r => r.contains(date))
   }
 
   return !valid;
