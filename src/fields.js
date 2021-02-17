@@ -181,8 +181,10 @@ let DatePicker = (props) => {
 DatePicker = makeField(DatePicker)
 
 
-let TimePicker = ({innerClass, pastDisabled, value, futureDisabled, onChange, readOnly, ...rest}) => {
+let TimePicker = ({innerClass, pastDisabled, value, defaultOpenValue = "12:00", futureDisabled, onChange, readOnly, ...rest}) => {
   const val = value ? moment(value, 'HH:mm') : value
+  const defOpenValue = moment(defaultOpenValue, 'HH:mm')
+
   const condProps = {}
   if(readOnly) {
     condProps['open'] = false
