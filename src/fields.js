@@ -152,9 +152,10 @@ const isDateDisabled = (date, {disabledAfter, disabledBefore, disabledRanges, fo
 
 let DatePicker = (props) => {
   const {innerClass, pastDisabled, disabledBefore, disabledAfter, disabledDate, 
-         futureDisabled, onChange, value, readOnly, formData, defaultPickerValue, ...rest} = props
+         futureDisabled, onChange, value, readOnly, renderExtraFooter, formData, defaultPickerValue, ...rest} = props
   const val = value ? moment(value, defaultFormat) : val
   const condProps = {}
+  let extraFooter;
   if(readOnly) {
     condProps['open'] = false
     condProps['allowClear'] = false
@@ -162,6 +163,10 @@ let DatePicker = (props) => {
 
   const _defPickerValue = utils.funcOrObj(value || defaultPickerValue, formData)
   const defPickerValue = _defPickerValue && moment(_defPickerValue, defaultFormat)
+
+  if(_.isFunction(renderExtraFooter)) {
+    condProps['renderExtraFooter'] = () => renderExtraFooter({value: val, onChange, startValue: formData['start_date'] } )
+  }
 
  return (
   
