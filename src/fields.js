@@ -172,7 +172,7 @@ let DatePicker = (props) => {
  return (
   
   <Fragment>
-    <AntDatePicker  {...condProps} className={innerClass} disabledDate={date => isDateDisabled(date, props)} format={defaultFormat} placeholder="Select date.."
+    <AntDatePicker  {...condProps} className={innerClass} disabledDate={date => isDateDisabled(date, props)} format={defaultFormat}
                     {...rest} value={val} onChange={(date, dateString) => onChange(dateString) } defaultPickerValue={defPickerValue}/>
 
   </Fragment>
