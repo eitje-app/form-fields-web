@@ -110,17 +110,24 @@ DropdownPicker = makeField(DropdownPicker)
 
 const defaultFormat = ["DD-MM-YYYY", 'YYYY-MM-DD']
 
-const disabledAfterToday = date => date && date < moment().endOf('day')
-const disabledBeforeToday = date => date && date > moment().endOf('day')
+const disabledAfterToday = date => date && date.endOf('day') <= moment().endOf('day')
+const disabledBeforeToday = date => date && date.endOf('day') >= moment().endOf('day')
 
-const isDateDisabled = (date, {disabledAfter, disabledBefore, disabledRanges, formData, isStart, isEnd, field, futureDisabled, pastDisabled}) => {
+const disabledTodayAndBefore = date => date && date.endOf('day') > moment().endOf('day')
+const disabledTodayAndAfter = date => date && date.endOf('day') < moment().endOf('day')
+
+
+
+const isDateDisabled = (date, {disabledAfter, disabledBefore, disabledRanges, formData, isStart, isEnd, field, futureDisabled, pastDisabled, pastDisabledToday, futureDisabledToday}) => {
   let valid = true
   
   let _disabledAfter = utils.funcOrObj(disabledAfter, formData)
   let _disabledBefore = utils.funcOrObj(disabledBefore, formData)
 
 
-  if(futureDisabled) valid = disabledAfterToday(date);  
+  if(futureDisabled) valid = disabledAfterToday(date); 
+
+  if(futureDisabledToday && valid) valid = disabledTodayAndAfter(date);
 
   if(isStart && valid && formData['end_date']) {
     valid = date < moment(formData['end_date'], defaultFormat).startOf('day')
@@ -131,6 +138,8 @@ const isDateDisabled = (date, {disabledAfter, disabledBefore, disabledRanges, fo
   }
 
   if(pastDisabled && valid) valid = disabledBeforeToday(date);
+
+  if(pastDisabledToday && valid) valid = disabledTodayAndBefore(date)
     
 
   if(_disabledAfter && valid)  {
