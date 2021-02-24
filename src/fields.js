@@ -209,7 +209,7 @@ let TimePicker = ({innerClass, pastDisabled, value, defaultOpenValue = "12:00", 
  return (
   
     <AntTimePicker {...condProps} showNow={false} format="HH:mm" placeholder="Select time.." className={innerClass} minuteStep={5}
-                    {...rest} value={val} onSelect={(date) => onChange(date.format("HH:mm")) }/>
+                    {...rest} value={val} defaultOpenValue={defOpenValue} onSelect={(date) => onChange(date.format("HH:mm")) }/>
 
                  
                  )
