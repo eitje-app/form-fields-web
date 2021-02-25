@@ -74,6 +74,7 @@ const searchOpts = {
   showSearch: true
 }
 
+const findKey = item => item.key || item.value 
 
 let DropdownPicker = props => {
   const {value, innerClass, label, readOnly, minSelected, error, multiple, showSearch, style = {}, ...rest} = props
@@ -93,8 +94,8 @@ let DropdownPicker = props => {
 
           <AntSelect {...condOpts} style={{width:'100%', ...style}} mode={multiple ? 'multiple' : 'default'} 
                      {...rest} value={value} className={innerClass}>
-            {pickerItems.map(i => 
-              <Option disabled={ disallowRemove && value.includes(i.value) } key={i.key} value={i.value}> 
+            {pickerItems.map((i, idx) => 
+              <Option disabled={ disallowRemove && value.includes(i.value) } key={findKey(i) || idx}value={i.value}> 
                 {i.label} 
               </Option>)}
            </AntSelect>
