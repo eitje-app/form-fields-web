@@ -160,6 +160,7 @@ const isDateDisabled = (date, {disabledAfter, disabledBefore, disabledRanges, fo
 
 
 let DatePicker = (props) => {
+  const picker = useRef(null)
   const {innerClass, pastDisabled, disabledBefore, disabledAfter, disabledDate, 
          futureDisabled, onChange, value, readOnly, renderExtraFooter, formData, defaultPickerValue, ...rest} = props
   const val = value ? moment(value, defaultFormat) : val
@@ -174,14 +175,15 @@ let DatePicker = (props) => {
   const defPickerValue = _defPickerValue && moment(_defPickerValue, defaultFormat)
 
   if(_.isFunction(renderExtraFooter)) {
-    condProps['renderExtraFooter'] = () => renderExtraFooter({value: val, onChange, startValue: formData['start_date'] } )
+    condProps['renderExtraFooter'] = () => renderExtraFooter({value: val, onChange, startValue: formData['start_date'], picker } )
     condProps['dropdownClassName'] = 'has-extra-footer'
   }
+
 
  return (
   
   <Fragment>
-    <AntDatePicker  {...condProps} className={innerClass} disabledDate={date => isDateDisabled(date, props)} format={defaultFormat}
+    <AntDatePicker  ref={picker} {...condProps} className={innerClass} disabledDate={date => isDateDisabled(date, props)} format={defaultFormat}
                     {...rest} value={val} onChange={(date, dateString) => onChange(dateString) } defaultPickerValue={defPickerValue}/>
 
   </Fragment>
