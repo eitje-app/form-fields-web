@@ -16,16 +16,34 @@ const change = (props, val, event) => {
 }
 
 const BaseInput = (props) => {
-  const {value, secure, textarea, innerRef, ...rest} = props
+  const {value, secure, textarea, innerRef, hideCharCounter, maxLength, ...rest} = props
   const InputEl = textarea ? AntInput.TextArea : secure ? AntInput.Password : AntInput
   return (
-        <InputEl ref={innerRef} {...rest} value={value} 
+      <Fragment>
+        <InputEl ref={innerRef} maxLength={maxLength} {...rest} value={value} 
                  onChange={e => change(props, e.target.value, e)}/>
+        {!!maxLength && !hideCharCounter && <CharCounter value={value} maxLength={maxLength}/> }
+      </Fragment>
+    )
+}
+
+const getColor = (charsLeft) => {
+  if(charsLeft < 5) return 'red'
+  if(charsLeft < 10) return 'orange'
+  return 'black'
+}
+
+
+const CharCounter = ({maxLength, value = ""}) => {
+  const charsLeft = maxLength - (value?.length || 0)
+  return (
+        <p className="char-counter" style={{color: getColor(charsLeft)}}>{charsLeft} / {maxLength}</p>
     )
 }
 
 
 const Input = makeField(BaseInput)
+Input.defaultProps = {defaultSubmitStrategy: 'blur'}
 
 const PopoverContent = ({items, renderItem, value, onChange}) => {
   return (
