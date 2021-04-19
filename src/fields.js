@@ -180,9 +180,12 @@ const isDateDisabled = (date, {disabledAfter, disabledBefore, disabledRanges, fo
 
 let DatePicker = (props) => {
   const picker = useRef(null)
-  const {innerClass, pastDisabled, disabledBefore, disabledAfter, disabledDate, 
+  const {innerClass, pastDisabled, disabledBefore, disabledAfter, customFormat, disabledDate, 
          futureDisabled, onChange, value, readOnly, renderExtraFooter, formData, defaultPickerValue, ...rest} = props
-  const val = value ? moment(value, defaultFormat) : val
+  
+  const _defaultFormat = customFormat || defaultFormat
+  const val = value ? moment(value, _defaultFormat) : val
+
   const condProps = {}
   let extraFooter;
   if(readOnly) {
@@ -191,7 +194,7 @@ let DatePicker = (props) => {
   }
 
   const _defPickerValue = utils.funcOrObj(value || defaultPickerValue, formData)
-  const defPickerValue = _defPickerValue && moment(_defPickerValue, defaultFormat)
+  const defPickerValue = _defPickerValue && moment(_defPickerValue, _defaultFormat)
 
   if(_.isFunction(renderExtraFooter)) {
     condProps['renderExtraFooter'] = () => renderExtraFooter({value: val, onChange, startValue: formData['start_date'], picker } )
@@ -202,7 +205,7 @@ let DatePicker = (props) => {
  return (
   
   <Fragment>
-    <AntDatePicker  ref={picker} {...condProps} className={innerClass} disabledDate={date => isDateDisabled(date, props)} format={defaultFormat}
+    <AntDatePicker  ref={picker} {...condProps} className={innerClass} disabledDate={date => isDateDisabled(date, props)} format={_defaultFormat}
                     {...rest} value={val} onChange={(date, dateString) => onChange(dateString) } defaultPickerValue={defPickerValue}/>
 
   </Fragment>
