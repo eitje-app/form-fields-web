@@ -87,7 +87,10 @@ let Switch = props => {
 Switch = makeField(Switch)
 
 const searchOpts = {
-  filterOption: (input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0,
+  filterOption: (input, option) => {
+    const normalized = option.children.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    return normalized.indexOf(input.toLowerCase()) >= 0
+  },
   optionFilterProp: 'children',
   showSearch: true
 }
