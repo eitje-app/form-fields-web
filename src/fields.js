@@ -37,7 +37,7 @@ const getColor = (charsLeft) => {
 const CharCounter = ({maxLength, value = ""}) => {
   const charsLeft = maxLength - (value?.length || 0)
   return (
-        <p className="char-counter" style={{color: getColor(charsLeft)}}>{charsLeft} / {maxLength}</p>
+        <p className="char-counter" style={{color: getColor(charsLeft)}}>{charsLeft}</p>
     )
 }
 
