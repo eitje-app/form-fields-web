@@ -20,7 +20,7 @@ const BaseInput = (props) => {
   const InputEl = textarea ? AntInput.TextArea : secure ? AntInput.Password : AntInput
   return (
       <Fragment>
-        <InputEl ref={innerRef} maxLength={maxLength} {...rest} value={value} 
+        <InputEl className="eitje-input" ref={innerRef} maxLength={maxLength} {...rest} value={value} 
                  onChange={e => change(props, e.target.value, e)}/>
         {!!maxLength && !hideCharCounter && <CharCounter value={value} maxLength={maxLength}/> }
       </Fragment>
@@ -42,7 +42,7 @@ const CharCounter = ({maxLength, value = ""}) => {
 }
 
 
-const Input = makeField(BaseInput)
+const Input = makeField(BaseInput, {className: 'eitje-input-container'})
 Input.defaultProps = {defaultSubmitStrategy: 'blur'}
 
 const PopoverContent = ({items, renderItem, value, onChange}) => {
@@ -80,11 +80,11 @@ export const PopoverPicker = props => {
 let Switch = props => {
   const {value} = props
   return (
-      <AntSwitch {...props} checked={!!value} />
+      <AntSwitch className="eitje-switch" {...props} checked={!!value} />
   )
 }
 
-Switch = makeField(Switch)
+Switch = makeField(Switch, {className: 'eitje-switch-container'})
 
 const searchOpts = {
   filterOption: (input, option) => {
@@ -114,7 +114,7 @@ let DropdownPicker = props => {
       <Fragment>
 
           <AntSelect {...condOpts} style={{width:'100%', ...style}} mode={multiple ? 'multiple' : 'default'} 
-                     {...rest} value={value} className={innerClass}>
+                     {...rest} value={value} className={`${innerClass} eitje-dropdown`}>
             {pickerItems.map((i, idx) => 
               <Option disabled={ disallowRemove && value.includes(i.value) } key={findKey(i) || idx}value={i.value}> 
                 {i.label} 
@@ -127,7 +127,7 @@ let DropdownPicker = props => {
 
 
 
-DropdownPicker = makeField(DropdownPicker)
+DropdownPicker = makeField(DropdownPicker, {className: 'eitje-dropdown-container'})
 
 
 const defaultFormat = ["DD-MM-YYYY", 'YYYY-MM-DD']
@@ -208,7 +208,7 @@ let DatePicker = (props) => {
  return (
   
   <Fragment>
-    <AntDatePicker  ref={picker} {...condProps} className={innerClass} disabledDate={date => isDateDisabled(date, props)} format={_defaultFormat}
+    <AntDatePicker  ref={picker} {...condProps} className={`${innerClass} eitje-date-picker`} disabledDate={date => isDateDisabled(date, props)} format={_defaultFormat}
                     {...rest} value={val} onChange={(date, dateString) => onChange(dateString) } defaultPickerValue={defPickerValue}/>
 
   </Fragment>
@@ -220,7 +220,7 @@ let DatePicker = (props) => {
 
 
 
-DatePicker = makeField(DatePicker)
+DatePicker = makeField(DatePicker, {className: 'eitje-date-picker-container'})
 
 
 let TimePicker = ({innerClass, pastDisabled, value, defaultOpenValue = "12:00", futureDisabled, onChange, readOnly, ...rest}) => {
@@ -235,7 +235,7 @@ let TimePicker = ({innerClass, pastDisabled, value, defaultOpenValue = "12:00", 
 
  return (
   
-    <AntTimePicker {...condProps} showNow={false} format="HH:mm" placeholder="Select time.." className={innerClass} minuteStep={5}
+    <AntTimePicker {...condProps} showNow={false} format="HH:mm" placeholder="Select time.." className={`${innerClass} eitje-time-picker`} minuteStep={5}
                     {...rest} value={val} defaultOpenValue={defOpenValue} onSelect={(date) => onChange(date.format("HH:mm")) }/>
 
                  
@@ -246,7 +246,7 @@ let TimePicker = ({innerClass, pastDisabled, value, defaultOpenValue = "12:00", 
 
 
 
-TimePicker = makeField(TimePicker)
+TimePicker = makeField(TimePicker, {className: 'eitje-time-picker-container'})
 
 
 export {DropdownPicker, DatePicker, Input, BaseInput, Switch, TimePicker}
