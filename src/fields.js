@@ -16,28 +16,30 @@ const change = (props, val, event) => {
 }
 
 const BaseInput = (props) => {
-  const {value, secure, textarea, innerRef, hideCharCounter, maxLength, ...rest} = props
+  const {value, secure, textarea, charCounterProps = {}, innerRef, hideCharCounter, maxLength, ...rest} = props
   const InputEl = textarea ? AntInput.TextArea : secure ? AntInput.Password : AntInput
   return (
       <Fragment>
         <InputEl className="eitje-input" ref={innerRef} maxLength={maxLength} {...rest} value={value} 
                  onChange={e => change(props, e.target.value, e)}/>
-        {!!maxLength && !hideCharCounter && <CharCounter value={value} maxLength={maxLength}/> }
+        {!!maxLength && !hideCharCounter && <CharCounter value={value} maxLength={maxLength} {...charCounterProps}/> }
       </Fragment>
     )
 }
 
-const getColor = (charsLeft) => {
-  if(charsLeft < 5) return 'red'
-  if(charsLeft < 10) return 'orange'
-  return 'black'
+
+const makeCharClass = (charsLeft, {warningThreshold = 10, dangerThreshold = 5}) => {
+  if(charsLeft < dangerThreshold) return 'char-counter-danger'
+  if(charsLeft < warningThreshold) return 'char-counter-warning'
+  return ''
 }
 
 
-const CharCounter = ({maxLength, value = ""}) => {
+const CharCounter = ({maxLength, value = "", ...rest}) => {
   const charsLeft = maxLength - (value?.length || 0)
+  const className = makeCharClass(charsLeft, rest)
   return (
-        <p className="char-counter" style={{color: getColor(charsLeft)}}>{charsLeft}</p>
+        <p className={`char-counter ${className}`} >{charsLeft}</p>
     )
 }
 
