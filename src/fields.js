@@ -16,11 +16,11 @@ const change = (props, val, event) => {
 }
 
 const BaseInput = (props) => {
-  const {value, secure, textarea, charCounterProps = {}, innerRef, hideCharCounter, maxLength, ...rest} = props
+  const {value, secure, textarea, charCounterProps = {}, innerRef, hideCharCounter, maxLength, autocomplete="nope", ...rest} = props
   const InputEl = textarea ? AntInput.TextArea : secure ? AntInput.Password : AntInput
   return (
       <Fragment>
-        <InputEl className="eitje-input" ref={innerRef} maxLength={maxLength} {...rest} value={value} 
+        <InputEl autocomplete={autocomplete} className="eitje-input" ref={innerRef} maxLength={maxLength} {...rest} value={value} 
                  onChange={e => change(props, e.target.value, e)}/>
         {!!maxLength && !hideCharCounter && <CharCounter value={value} maxLength={maxLength} {...charCounterProps}/> }
       </Fragment>
@@ -115,7 +115,7 @@ let DropdownPicker = props => {
   return (
       <Fragment>
 
-          <AntSelect {...condOpts} style={{width:'100%', ...style}} mode={multiple ? 'multiple' : 'default'} 
+          <AntSelect {...condOpts} style={style} mode={multiple ? 'multiple' : 'default'} 
                      {...rest} value={value} className={`${innerClass} eitje-dropdown`}>
             {pickerItems.map((i, idx) => 
               <Option disabled={ disallowRemove && value.includes(i.value) } key={findKey(i) || idx}value={i.value}> 
