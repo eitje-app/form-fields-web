@@ -24,8 +24,20 @@ const change = (props, val, event) => {
 }
 
 const BaseInput = (props) => {
-  const {value, secure, textarea, charCounterProps = {}, innerRef, hideCharCounter, maxLength, autocomplete = 'nope', ...rest} = props
+  const {
+    value,
+    secure,
+    textarea,
+    suffix,
+    charCounterProps = {},
+    innerRef,
+    hideCharCounter,
+    maxLength,
+    autocomplete = 'nope',
+    ...rest
+  } = props
   const InputEl = textarea ? AntInput.TextArea : secure ? AntInput.Password : AntInput
+  const _suffix = utils.funcOrVal(suffix, props)
   return (
     <Fragment>
       <InputEl
@@ -34,6 +46,7 @@ const BaseInput = (props) => {
         ref={innerRef}
         maxLength={maxLength}
         {...rest}
+        suffix={_suffix}
         value={value}
         onChange={(e) => change(props, e.target.value, e)}
       />
