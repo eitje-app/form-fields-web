@@ -215,7 +215,7 @@ const isDateDisabled = (
   return !valid
 }
 
-let DatePicker = (props) => {
+const RawDatePicker = (props) => {
   const picker = useRef(null)
   const {
     innerClass,
@@ -269,7 +269,7 @@ let DatePicker = (props) => {
   )
 }
 
-DatePicker = makeField(DatePicker, {className: 'eitje-date-picker-container'})
+const DatePicker = makeField(RawDatePicker, {className: 'eitje-date-picker-container'})
 
 let TimePicker = ({innerClass, pastDisabled, value, defaultOpenValue = '12:00', futureDisabled, onChange, readOnly, ...rest}) => {
   const val = value ? moment(value, 'HH:mm') : value
@@ -299,6 +299,6 @@ let TimePicker = ({innerClass, pastDisabled, value, defaultOpenValue = '12:00', 
 
 TimePicker = makeField(TimePicker, {className: 'eitje-time-picker-container'})
 
-export {DropdownPicker, DatePicker, Input, BaseInput, Switch, TimePicker}
+export {DropdownPicker, DatePicker, RawDatePicker, Input, BaseInput, Switch, TimePicker}
 
 // 3 form smaken: editable, readonly & disabled.
