@@ -289,6 +289,7 @@ const RawTimePicker = ({innerClass, pastDisabled, value, defaultOpenValue = '12:
       placeholder="Select time.."
       className={`${innerClass} eitje-time-picker`}
       minuteStep={5}
+      popupClassName="eitje-time-picker-panel"
       {...rest}
       value={val}
       defaultOpenValue={defOpenValue}
