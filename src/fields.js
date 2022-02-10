@@ -7,6 +7,7 @@ import {
   Popover,
   Switch as AntSwitch,
   TimePicker as AntTimePicker,
+  Checkbox as AntCheckbox,
 } from 'antd'
 import moment from 'moment'
 import {useFormField, usePicker, makeField} from '@eitje/form'
@@ -107,6 +108,13 @@ let Switch = (props) => {
 
 Switch = makeField(Switch, {className: 'eitje-switch-container'})
 
+let Checkbox = (props) => {
+  const {value} = props
+  return <AntCheckbox className="eitje-checkbox" {...props} checked={!!value} />
+}
+
+Checkbox = makeField(Checkbox, {className: 'eitje-checkbox-container'})
+
 const searchOpts = {
   filterOption: (input, option) => {
     const normalized = option.children
@@ -144,6 +152,8 @@ let DropdownPicker = (props) => {
   if (disallowRemove) {
     condOpts['removeIcon'] = null
   }
+
+  if (readOnly) condOpts['showArrow'] = false
 
   return (
     <Fragment>
@@ -312,6 +322,6 @@ const RawTimePicker = ({innerClass, pastDisabled, value, defaultOpenValue = '12:
 
 const TimePicker = makeField(RawTimePicker, {className: 'eitje-time-picker-container'})
 
-export {DropdownPicker, DatePicker, RawDatePicker, Input, BaseInput, Switch, RawTimePicker, TimePicker}
+export {DropdownPicker, DatePicker, RawDatePicker, Checkbox, Input, BaseInput, Switch, RawTimePicker, TimePicker}
 
 // 3 form smaken: editable, readonly & disabled.
