@@ -109,8 +109,8 @@ let Switch = (props) => {
 Switch = makeField(Switch, {className: 'eitje-switch-container'})
 
 let Checkbox = (props) => {
-  const {value} = props
-  return <AntCheckbox className="eitje-checkbox" {...props} checked={!!value} />
+  const {value, innerRef} = props
+  return <AntCheckbox ref={innerRef} className="eitje-checkbox" {...props} checked={!!value} />
 }
 
 Checkbox = makeField(Checkbox, {className: 'eitje-checkbox-container'})
