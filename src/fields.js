@@ -129,7 +129,7 @@ const searchOpts = {
 
 const findKey = (item) => item.key || item.value
 
-let DropdownPicker = (props) => {
+const RawDropdownPicker = (props) => {
   const {
     value,
     innerClass,
@@ -175,7 +175,7 @@ let DropdownPicker = (props) => {
   )
 }
 
-DropdownPicker = makeField(DropdownPicker, {className: 'eitje-dropdown-container'})
+const DropdownPicker = makeField(RawDropdownPicker, {className: 'eitje-dropdown-container'})
 
 const defaultFormat = ['DD-MM-YYYY', 'YYYY-MM-DD']
 
@@ -322,6 +322,6 @@ const RawTimePicker = ({innerClass, pastDisabled, value, defaultOpenValue = '12:
 
 const TimePicker = makeField(RawTimePicker, {className: 'eitje-time-picker-container'})
 
-export {DropdownPicker, DatePicker, RawDatePicker, Checkbox, Input, BaseInput, Switch, RawTimePicker, TimePicker}
+export {DropdownPicker, RawDropdownPicker, DatePicker, RawDatePicker, Checkbox, Input, BaseInput, Switch, RawTimePicker, TimePicker}
 
 // 3 form smaken: editable, readonly & disabled.
