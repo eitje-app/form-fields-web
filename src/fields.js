@@ -195,6 +195,8 @@ const isDateDisabled = (
     field,
     isEnd = field == 'end_date',
     isStart = field == 'start_date',
+    startDateField = 'start_date',
+    endDateField = 'end_date',
     futureDisabled,
     pastDisabled,
     pastDisabledToday,
@@ -210,12 +212,12 @@ const isDateDisabled = (
 
   if (futureDisabledToday && valid) valid = disabledTodayAndAfter(date)
 
-  if (isStart && valid && formData['end_date']) {
-    valid = date < moment(formData['end_date'], defaultFormat).startOf('day')
+  if (isStart && valid && formData[endDateField]) {
+    valid = date < moment(formData[endDateField], defaultFormat).startOf('day')
   }
 
-  if (isEnd && valid && formData['start_date']) {
-    valid = date > moment(formData['start_date'], defaultFormat).startOf('day')
+  if (isEnd && valid && formData[startDateField]) {
+    valid = date > moment(formData[startDateField], defaultFormat).startOf('day')
   }
 
   if (pastDisabled && valid) valid = disabledBeforeToday(date)
