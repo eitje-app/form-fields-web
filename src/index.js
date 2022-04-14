@@ -1,1 +1,1 @@
-module.exports = require("./fields")
+module.exports = require('./fields')

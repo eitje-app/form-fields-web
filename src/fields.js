@@ -10,7 +10,7 @@ import {
   Checkbox as AntCheckbox,
 } from 'antd'
 import moment from 'moment'
-import {useFormField, usePicker, makeField} from '@eitje/form'
+import {useFormField, usePicker, makeField, makeLegacyField} from '@eitje/form'
 import utils from '@eitje/utils'
 
 const change = (props, val, event) => {
@@ -69,7 +69,10 @@ const CharCounter = ({maxLength, value = '', ...rest}) => {
 }
 
 const Input = makeField(BaseInput, {className: 'eitje-input-container'})
+const LegacyInput = makeLegacyField(BaseInput, {className: 'eitje-input-container'})
+
 Input.defaultProps = {defaultSubmitStrategy: 'blur'}
+LegacyInput.defaultProps = {defaultSubmitStrategy: 'blur'}
 
 const PopoverContent = ({items, renderItem, value, onChange}) => {
   return (
@@ -101,19 +104,21 @@ export const PopoverPicker = (props) => {
   )
 }
 
-let Switch = (props) => {
+const RawSwitch = (props) => {
   const {value} = props
   return <AntSwitch className="eitje-switch" {...props} checked={!!value} />
 }
 
-Switch = makeField(Switch, {className: 'eitje-switch-container'})
+const Switch = makeField(RawSwitch, {className: 'eitje-switch-container'})
+const LegacySwitch = makeLegacyField(RawSwitch, {className: 'eitje-switch-container'})
 
-let Checkbox = (props) => {
+const RawCheckbox = (props) => {
   const {value, innerRef} = props
   return <AntCheckbox ref={innerRef} className="eitje-checkbox" {...props} checked={!!value} />
 }
 
-Checkbox = makeField(Checkbox, {className: 'eitje-checkbox-container'})
+const Checkbox = makeField(RawCheckbox, {className: 'eitje-checkbox-container'})
+const LegacyCheckbox = makeLegacyField(RawCheckbox, {className: 'eitje-checkbox-container'})
 
 const searchOpts = {
   filterOption: (input, option) => {
@@ -176,6 +181,7 @@ const RawDropdownPicker = (props) => {
 }
 
 const DropdownPicker = makeField(RawDropdownPicker, {className: 'eitje-dropdown-container'})
+const LegacyDropdownPicker = makeLegacyField(RawDropdownPicker, {className: 'eitje-dropdown-container'})
 
 const defaultFormat = ['DD-MM-YYYY', 'YYYY-MM-DD']
 
@@ -294,6 +300,7 @@ const RawDatePicker = (props) => {
 }
 
 const DatePicker = makeField(RawDatePicker, {className: 'eitje-date-picker-container'})
+const LegacyDatePicker = makeLegacyField(RawDatePicker, {className: 'eitje-date-picker-container'})
 
 const RawTimePicker = ({innerClass, pastDisabled, value, defaultOpenValue = '12:00', futureDisabled, onChange, readOnly, ...rest}) => {
   const val = value ? moment(value, 'HH:mm') : value
@@ -323,7 +330,26 @@ const RawTimePicker = ({innerClass, pastDisabled, value, defaultOpenValue = '12:
 }
 
 const TimePicker = makeField(RawTimePicker, {className: 'eitje-time-picker-container'})
+const LegacyTimePicker = makeLegacyField(RawTimePicker, {className: 'eitje-time-picker-container'})
 
-export {DropdownPicker, RawDropdownPicker, DatePicker, RawDatePicker, Checkbox, Input, BaseInput, Switch, RawTimePicker, TimePicker}
+export {
+  DropdownPicker,
+  RawDropdownPicker,
+  LegacyDropdownPicker,
+  DatePicker,
+  RawDatePicker,
+  LegacyDatePicker,
+  Checkbox,
+  LegacyCheckbox,
+  Input,
+  BaseInput,
+  LegacyInput,
+  Switch,
+  RawSwitch,
+  LegacySwitch,
+  RawTimePicker,
+  TimePicker,
+  LegacyTimePicker,
+}
 
 // 3 form smaken: editable, readonly & disabled.
