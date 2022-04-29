@@ -35,6 +35,7 @@ const BaseInput = (props) => {
     hideCharCounter,
     maxLength,
     autocomplete = 'nope',
+    autoSize = {minRows: 2, maxRows: 12},
     ...rest
   } = props
   const InputEl = textarea ? AntInput.TextArea : secure ? AntInput.Password : AntInput
@@ -49,6 +50,7 @@ const BaseInput = (props) => {
         {...rest}
         suffix={_suffix}
         value={value}
+        autoSize={autoSize}
         onChange={(e) => change(props, e.target.value, e)}
       />
       {!!maxLength && !hideCharCounter && <CharCounter value={value} maxLength={maxLength} {...charCounterProps} />}
