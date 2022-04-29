@@ -68,7 +68,7 @@ const CharCounter = ({maxLength, value = '', ...rest}) => {
   return <p className={`char-counter ${className}`}>{charsLeft}</p>
 }
 
-const Input = makeField(BaseInput, {className: 'eitje-input-container'})
+const Input = makeField(BaseInput, {className: 'eitje-input-container', withClearIcon: true})
 const LegacyInput = makeLegacyField(BaseInput, {className: 'eitje-input-container'})
 
 Input.defaultProps = {defaultSubmitStrategy: 'blur'}
@@ -180,7 +180,7 @@ const RawDropdownPicker = (props) => {
   )
 }
 
-const DropdownPicker = makeField(RawDropdownPicker, {className: 'eitje-dropdown-container'})
+const DropdownPicker = makeField(RawDropdownPicker, {className: 'eitje-dropdown-container', withClearIcon: true})
 const LegacyDropdownPicker = makeLegacyField(RawDropdownPicker, {className: 'eitje-dropdown-container'})
 
 const defaultFormat = ['DD-MM-YYYY', 'YYYY-MM-DD']
