@@ -188,15 +188,13 @@ const RawDropdownPicker = (props) => {
       </AntSelect>
       {selectAll && (
         <p onClick={() => _selectAll(value, pickerItems)} className="eitje-form-2-select-all">
-          {' '}
-          select all{' '}
+          select all
         </p>
       )}
     </Fragment>
   )
 }
 
-console.log('hi from fields')
 const _withIcon = (props) => !props.selectAll
 
 const DropdownPicker = makeField(RawDropdownPicker, {className: 'eitje-dropdown-container', withClearIcon: _withIcon, withIcon: _withIcon})
