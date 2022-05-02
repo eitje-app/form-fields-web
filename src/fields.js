@@ -179,7 +179,7 @@ const RawDropdownPicker = (props) => {
           </Option>
         ))}
       </AntSelect>
-      {selectAll && <p> select all </p>}
+      {selectAll && <p className="eitje-form-2-select-all"> select all </p>}
     </Fragment>
   )
 }
