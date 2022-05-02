@@ -149,6 +149,7 @@ const RawDropdownPicker = (props) => {
     showSearch = items.length > 5,
     style = {},
     selectAll,
+    setOpen = _.noop,
     ...rest
   } = props
   const {pickerItems, selectedBaseItem, selectedItems} = usePicker(props)
@@ -163,12 +164,18 @@ const RawDropdownPicker = (props) => {
 
   if (readOnly) condOpts['showArrow'] = false
 
+  const _selectAll = (value, items) => {
+    if (!utils.exists(value)) return props.onChange(items.map((i) => i.value))
+    return props.onChange(multiple ? [] : null)
+  }
+
   return (
     <Fragment>
       <AntSelect
         {...condOpts}
         style={style}
         mode={multiple ? 'multiple' : 'default'}
+        onDropdownVisibleChange={setOpen}
         {...rest}
         value={value}
         className={`${innerClass} eitje-dropdown`}
@@ -179,12 +186,20 @@ const RawDropdownPicker = (props) => {
           </Option>
         ))}
       </AntSelect>
-      {selectAll && <p className="eitje-form-2-select-all"> select all </p>}
+      {selectAll && (
+        <p onClick={() => _selectAll(value, pickerItems)} className="eitje-form-2-select-all">
+          {' '}
+          select all{' '}
+        </p>
+      )}
     </Fragment>
   )
 }
 
-const DropdownPicker = makeField(RawDropdownPicker, {className: 'eitje-dropdown-container', withClearIcon: true})
+console.log('hi from fields')
+const _withIcon = (props) => !props.selectAll
+
+const DropdownPicker = makeField(RawDropdownPicker, {className: 'eitje-dropdown-container', withClearIcon: _withIcon, withIcon: _withIcon})
 const LegacyDropdownPicker = makeLegacyField(RawDropdownPicker, {className: 'eitje-dropdown-container'})
 
 const defaultFormat = ['DD-MM-YYYY', 'YYYY-MM-DD']
