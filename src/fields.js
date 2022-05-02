@@ -148,6 +148,7 @@ const RawDropdownPicker = (props) => {
     multiple,
     showSearch = items.length > 5,
     style = {},
+    selectAll,
     ...rest
   } = props
   const {pickerItems, selectedBaseItem, selectedItems} = usePicker(props)
@@ -178,6 +179,7 @@ const RawDropdownPicker = (props) => {
           </Option>
         ))}
       </AntSelect>
+      {selectAll && <p> select all </p>}
     </Fragment>
   )
 }
