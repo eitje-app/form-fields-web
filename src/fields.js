@@ -10,7 +10,7 @@ import {
   Checkbox as AntCheckbox,
 } from 'antd'
 import moment from 'moment'
-import {useFormField, usePicker, makeField, makeLegacyField} from '@eitje/form'
+import {useFormField, usePicker, makeField, makeLegacyField, t} from '@eitje/form'
 import utils from '@eitje/utils'
 
 const change = (props, val, event) => {
@@ -188,7 +188,7 @@ const RawDropdownPicker = (props) => {
       </AntSelect>
       {selectAll && (
         <p onClick={() => _selectAll(value, pickerItems)} className="eitje-form-2-select-all">
-          select all
+          {t('common.select_all')}
         </p>
       )}
     </Fragment>
