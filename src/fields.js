@@ -116,7 +116,15 @@ const LegacySwitch = makeLegacyField(RawSwitch, {className: 'eitje-switch-contai
 
 const RawCheckbox = (props) => {
   const {value, innerRef} = props
-  return <AntCheckbox ref={innerRef} className="eitje-checkbox" {...props} checked={!!value} />
+  return (
+    <AntCheckbox
+      ref={innerRef}
+      className="eitje-checkbox"
+      {...props}
+      onChange={(e) => props.onChange(e.target.checked)}
+      checked={!!value}
+    />
+  )
 }
 
 const Checkbox = makeField(RawCheckbox, {className: 'eitje-checkbox-container'})
