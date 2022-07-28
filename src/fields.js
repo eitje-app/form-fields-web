@@ -127,7 +127,7 @@ const RawCheckbox = (props) => {
   )
 }
 
-const Checkbox = makeField(RawCheckbox, {className: 'eitje-checkbox-container'})
+const Checkbox = makeField(RawCheckbox, {className: 'eitje-checkbox-container', withIcon: false})
 const LegacyCheckbox = makeLegacyField(RawCheckbox, {className: 'eitje-checkbox-container'})
 
 const searchOpts = {
