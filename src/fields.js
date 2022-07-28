@@ -367,6 +367,7 @@ export {
   Checkbox,
   LegacyCheckbox,
   Input,
+  RawCheckbox,
   BaseInput,
   LegacyInput,
   Switch,
