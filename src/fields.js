@@ -197,7 +197,17 @@ const RawDropdownPicker = (props) => {
 
 const _withIcon = (props) => !props.selectAll
 
-const DropdownPicker = makeField(RawDropdownPicker, {className: 'eitje-dropdown-container', withClearIcon: _withIcon, withIcon: _withIcon})
+const defaultDropdownValue = (props) => {
+  if (props.multiple) return []
+  return null
+}
+
+const DropdownPicker = makeField(RawDropdownPicker, {
+  className: 'eitje-dropdown-container',
+  withClearIcon: _withIcon,
+  withIcon: _withIcon,
+  defaultPickerValue: defaultDropdownValue,
+})
 const LegacyDropdownPicker = makeLegacyField(RawDropdownPicker, {className: 'eitje-dropdown-container'})
 
 const defaultFormat = ['DD-MM-YYYY', 'YYYY-MM-DD']
