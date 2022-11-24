@@ -70,7 +70,14 @@ const CharCounter = ({maxLength, value = '', ...rest}) => {
   return <p className={`char-counter ${className}`}>{charsLeft}</p>
 }
 
-const Input = makeField(BaseInput, {className: 'eitje-input-container', withClearIcon: true})
+const Input = makeField(BaseInput, {className: getInputClassName, withClearIcon: true})
+const getInputClassName = (props) => {
+  return utils.makeCns(
+    'eitje-input-container',
+    props.textarea && 'eitje-input-container-textarea',
+    props.password && 'eitje-input-container-password',
+  )
+}
 const LegacyInput = makeLegacyField(BaseInput, {className: 'eitje-input-container'})
 
 Input.defaultProps = {defaultSubmitStrategy: 'blur'}
@@ -168,7 +175,7 @@ const RawDropdownPicker = (props) => {
     if (!utils.exists(value)) return props.onChange(items.map((i) => i.value))
     return props.onChange(multiple ? [] : null)
   }
-
+  const classNames = utils.makeCns(innerClass, 'eitje-dropdown')
   return (
     <Fragment>
       <AntSelect
@@ -178,7 +185,7 @@ const RawDropdownPicker = (props) => {
         onDropdownVisibleChange={setOpen}
         {...rest}
         value={value}
-        className={`${innerClass} eitje-dropdown`}
+        className={classNames}
       >
         {pickerItems.map((i, idx) => (
           <Option disabled={disallowRemove && value.includes(i.value)} key={findKey(i) || idx} value={i.value}>
@@ -203,11 +210,15 @@ const defaultDropdownValue = (props) => {
 }
 
 const DropdownPicker = makeField(RawDropdownPicker, {
-  className: 'eitje-dropdown-container',
+  className: getDropdownPickerClassName,
   withClearIcon: _withIcon,
   withIcon: _withIcon,
   defaultPickerValue: defaultDropdownValue,
 })
+
+const getDropdownPickerClassNane = (props) => {
+  return utils.makeCns('eitje-dropdown-container', props.multiple && 'eitje-dropdown-container-multiple')
+}
 const LegacyDropdownPicker = makeLegacyField(RawDropdownPicker, {className: 'eitje-dropdown-container'})
 
 const defaultFormat = ['DD-MM-YYYY', 'YYYY-MM-DD']
