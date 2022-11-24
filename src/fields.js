@@ -70,7 +70,6 @@ const CharCounter = ({maxLength, value = '', ...rest}) => {
   return <p className={`char-counter ${className}`}>{charsLeft}</p>
 }
 
-const Input = makeField(BaseInput, {className: getInputClassName, withClearIcon: true})
 const getInputClassName = (props) => {
   return utils.makeCns(
     'eitje-input-container',
@@ -78,6 +77,9 @@ const getInputClassName = (props) => {
     props.password && 'eitje-input-container-password',
   )
 }
+
+const Input = makeField(BaseInput, {className: getInputClassName, withClearIcon: true})
+
 const LegacyInput = makeLegacyField(BaseInput, {className: 'eitje-input-container'})
 
 Input.defaultProps = {defaultSubmitStrategy: 'blur'}
@@ -209,6 +211,10 @@ const defaultDropdownValue = (props) => {
   return null
 }
 
+const getDropdownPickerClassName = (props) => {
+  return utils.makeCns('eitje-dropdown-container', props.multiple && 'eitje-dropdown-container-multiple')
+}
+
 const DropdownPicker = makeField(RawDropdownPicker, {
   className: getDropdownPickerClassName,
   withClearIcon: _withIcon,
@@ -216,9 +222,6 @@ const DropdownPicker = makeField(RawDropdownPicker, {
   defaultPickerValue: defaultDropdownValue,
 })
 
-const getDropdownPickerClassNane = (props) => {
-  return utils.makeCns('eitje-dropdown-container', props.multiple && 'eitje-dropdown-container-multiple')
-}
 const LegacyDropdownPicker = makeLegacyField(RawDropdownPicker, {className: 'eitje-dropdown-container'})
 
 const defaultFormat = ['DD-MM-YYYY', 'YYYY-MM-DD']
