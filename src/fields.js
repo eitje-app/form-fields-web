@@ -344,17 +344,7 @@ const DatePicker = makeField(RawDatePicker, {className: 'eitje-date-picker-conta
 const LegacyDatePicker = makeLegacyField(RawDatePicker, {className: 'eitje-date-picker-container'})
 
 const RawTimePicker = (props) => {
-  const {
-    innerClass,
-    pastDisabled,
-    disabledTime = _.noop,
-    value,
-    defaultOpenValue = '12:00',
-    futureDisabled,
-    onChange,
-    readOnly,
-    ...rest
-  } = props
+  const {innerClass, pastDisabled, disabledTime, value, defaultOpenValue = '12:00', futureDisabled, onChange, readOnly, ...rest} = props
   const val = value ? moment(value, 'HH:mm') : value
   const defOpenValue = moment(defaultOpenValue, 'HH:mm')
 
@@ -362,6 +352,10 @@ const RawTimePicker = (props) => {
   if (readOnly) {
     condProps['open'] = false
     condProps['allowClear'] = false
+  }
+
+  if (disabledTime) {
+    condProps['disabledTime'] = (now) => disabledTime(now, props)
   }
 
   return (
@@ -374,7 +368,6 @@ const RawTimePicker = (props) => {
       minuteStep={5}
       popupClassName="eitje-time-picker-panel"
       {...rest}
-      disabledTime={(now) => disabledTime(now, props)}
       value={val}
       defaultOpenValue={defOpenValue}
       onSelect={(date) => onChange(date.format('HH:mm'))}
