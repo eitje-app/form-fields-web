@@ -370,7 +370,7 @@ const RawTimePicker = (props) => {
       {...rest}
       value={val}
       defaultOpenValue={defOpenValue}
-      onSelect={(date) => onChange(date.format('HH:mm'))}
+      onChange={(date) => onChange(date.format('HH:mm'))}
     />
   )
 }
