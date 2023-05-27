@@ -31,8 +31,8 @@ const TimePicker = (props) => {
       {...rest}
       value={val}
       defaultOpenValue={defOpenValue}
-      onChange={(date) => onChange(date.format('HH:mm'))}
-      onSelect={(date) => onChange(date.format('HH:mm'))}
+      onChange={(date) => onChange(date?.format?.('HH:mm'))}
+      onSelect={(date) => onChange(date?.format?.('HH:mm'))}
     />
   )
 }
