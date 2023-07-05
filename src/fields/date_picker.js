@@ -18,6 +18,7 @@ const isDateDisabled = (
     disabledAfter,
     disabledBefore,
     disabledRanges,
+    disabledFn,
     formData,
     field,
     isEnd = field == 'end_date',
@@ -31,6 +32,10 @@ const isDateDisabled = (
   },
 ) => {
   let valid = true
+
+  if (disabledFn) {
+    return disabledFn(date)
+  }
 
   let _disabledAfter = utils.funcOrObj(disabledAfter, formData)
   let _disabledBefore = utils.funcOrObj(disabledBefore, formData)
