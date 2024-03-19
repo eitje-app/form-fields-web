@@ -5,12 +5,25 @@ import RawTimePicker from './fields/time_picker'
 import RawDatePicker from './fields/date_picker'
 import PopoverPicker from './fields/popover_picker'
 import BaseInput from './fields/input'
-import {useFormField, usePicker, makeField, makeLegacyField, makeRegisteredField, t} from '@eitje/form'
+import {
+  useFormField,
+  usePicker,
+  makeField,
+  makeNewField,
+  makeLegacyField,
+  makeNewRegisteredField,
+  makeRegisteredField,
+  useForm,
+  t,
+} from '@eitje/form'
 import utils from '@eitje/utils'
 
 const _buildField = (components) => (props) => {
-  const {Full, Form, Base} = components
+  const {Full, Form, Base, New} = components
   const {form = true, decorated = true, raw} = props
+  const {form: formInstance} = useForm()
+  const isNew = formInstance?.constructor?.name == 'NewForm'
+  if (isNew) return <New {...props} newForm />
   if (raw) return <Base {...props} />
   if (form && decorated) return <Full {...props} />
   if (form) return <Form {...props} />
@@ -18,10 +31,10 @@ const _buildField = (components) => (props) => {
 }
 
 const buildField = (Base, opts = {}) => {
-  const {modern} = opts
   return _buildField({
     Full: makeField(Base, opts),
     Form: makeRegisteredField(Base),
+    New: makeNewField(Base, opts),
     Base,
   })
 }
@@ -56,15 +69,17 @@ const DropdownPicker = buildField(RawDropdownPicker, {
 
 const LegacyDropdownPicker = makeLegacyField(RawDropdownPicker, {className: 'eitje-dropdown-container'})
 
-const getInputClassName = (props) => {
-  return utils.makeCns(
+const getInputProps = (props) => {
+  const className = utils.makeCns(
     'eitje-input-container',
     props.textarea && 'eitje-input-container-textarea',
     props.password && 'eitje-input-container-password',
   )
+
+  return {className, withClearIcon: true, clearIcon: true}
 }
 
-const Input = buildField(BaseInput, {className: getInputClassName, withClearIcon: true})
+const Input = buildField(BaseInput, getInputProps)
 Input.defaultProps = {defaultSubmitStrategy: 'blur'}
 const LegacyInput = makeLegacyField(BaseInput, {className: 'eitje-input-container'})
 LegacyInput.defaultProps = {defaultSubmitStrategy: 'blur'}
