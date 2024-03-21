@@ -14,6 +14,7 @@ import {
   makeNewRegisteredField,
   makeRegisteredField,
   useForm,
+  config,
   t,
 } from '@eitje/form'
 import utils from '@eitje/utils'
@@ -96,6 +97,9 @@ const LegacyDatePicker = makeLegacyField(RawDatePicker, {className: 'eitje-date-
 const TimePicker = buildField(RawTimePicker, {className: 'eitje-time-picker-container'})
 const LegacyTimePicker = makeLegacyField(RawTimePicker, {className: 'eitje-time-picker-container'})
 
+const FormRow = (props) => <config.Layout {...props} className="eitje-form-3-row" />
+const NewFormRow = FormRow
+
 export {
   DropdownPicker,
   RawDropdownPicker,
@@ -115,5 +119,7 @@ export {
   buildField,
   RawTimePicker,
   TimePicker,
+  FormRow,
+  NewFormRow,
   LegacyTimePicker,
 }
