@@ -90,7 +90,7 @@ const getInputProps = (props) => {
 		props.password && "eitje-input-container-password",
 	);
 
-	return { className, withClearIcon: true, clearIcon: true };
+	return { className, icon: false, withClearIcon: true, clearIcon: true };
 };
 
 const Input = buildField(BaseInput, getInputProps);
