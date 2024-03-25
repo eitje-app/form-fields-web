@@ -89,7 +89,7 @@ const LegacyInput = makeLegacyField(BaseInput, {
 })
 LegacyInput.defaultProps = {defaultSubmitStrategy: 'blur'}
 
-const Switch = buildField(RawSwitch, {className: 'eitje-switch-container'})
+const Switch = buildField(RawSwitch, {className: 'eitje-switch-container', clearIcon: false})
 const LegacySwitch = makeLegacyField(RawSwitch, {
   className: 'eitje-switch-container',
 })
@@ -97,6 +97,7 @@ const LegacySwitch = makeLegacyField(RawSwitch, {
 const Checkbox = buildField(RawCheckbox, {
   className: 'eitje-checkbox-container',
   withIcon: false,
+  clearIcon: false,
 })
 const LegacyCheckbox = makeLegacyField(RawCheckbox, {
   className: 'eitje-checkbox-container',
@@ -104,6 +105,7 @@ const LegacyCheckbox = makeLegacyField(RawCheckbox, {
 
 const DatePicker = buildField(RawDatePicker, {
   className: 'eitje-date-picker-container',
+  icon: true,
 })
 const LegacyDatePicker = makeLegacyField(RawDatePicker, {
   className: 'eitje-date-picker-container',
@@ -111,6 +113,7 @@ const LegacyDatePicker = makeLegacyField(RawDatePicker, {
 
 const TimePicker = buildField(RawTimePicker, {
   className: 'eitje-time-picker-container',
+  icon: true,
 })
 const LegacyTimePicker = makeLegacyField(RawTimePicker, {
   className: 'eitje-time-picker-container',
