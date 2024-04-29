@@ -16,6 +16,7 @@ import {
   useForm,
   config,
   t,
+  NewForm,
 } from '@eitje/form'
 import utils from '@eitje/utils'
 
@@ -23,7 +24,7 @@ const _buildField = components => props => {
   const {Full, Form, Base, New} = components
   const {form = true, decorated = true, raw} = props
   const {form: formInstance} = useForm()
-  const isNew = formInstance?.constructor?.name == 'NewForm'
+  const isNew = formInstance instanceof NewForm
   if (isNew) return <New {...props} newForm />
   if (raw) return <Base {...props} />
   if (form && decorated) return <Full {...props} />
