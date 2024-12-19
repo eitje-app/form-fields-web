@@ -6,11 +6,11 @@ import utils from '@eitje/utils'
 
 const defaultFormat = ['DD-MM-YYYY', 'YYYY-MM-DD']
 
-const disabledAfterToday = (date) => date && date.endOf('day') <= moment().endOf('day')
-const disabledBeforeToday = (date) => date && date.endOf('day') >= moment().endOf('day')
+const disabledAfterToday = date => date && date.endOf('day') <= moment().endOf('day')
+const disabledBeforeToday = date => date && date.endOf('day') >= moment().endOf('day')
 
-const disabledTodayAndBefore = (date) => date && date.endOf('day') > moment().endOf('day')
-const disabledTodayAndAfter = (date) => date && date.endOf('day') < moment().endOf('day')
+const disabledTodayAndBefore = date => date && date.endOf('day') > moment().endOf('day')
+const disabledTodayAndAfter = date => date && date.endOf('day') < moment().endOf('day')
 
 const isDateDisabled = (
   date,
@@ -65,13 +65,13 @@ const isDateDisabled = (
   }
 
   if (disabledRanges && valid && date) {
-    valid = !disabledRanges.some((r) => r.contains(date))
+    valid = !disabledRanges.some(r => r.contains(date))
   }
 
   return !valid
 }
 
-const DatePicker = (props) => {
+const DatePicker = props => {
   const picker = useRef(null)
   const {
     innerClass,
@@ -91,7 +91,7 @@ const DatePicker = (props) => {
   } = props
 
   const _defaultFormat = customFormat || defaultFormat
-  const val = value ? moment(value, _defaultFormat) : val
+  const val = value ? moment(value, _defaultFormat) : null
 
   const condProps = {}
   let extraFooter
@@ -114,7 +114,7 @@ const DatePicker = (props) => {
         ref={picker}
         {...condProps}
         className={`${innerClass} eitje-date-picker`}
-        disabledDate={(date) => isDateDisabled(date, props)}
+        disabledDate={date => isDateDisabled(date, props)}
         format={_defaultFormat}
         {...rest}
         value={val}
