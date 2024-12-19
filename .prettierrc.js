@@ -6,6 +6,6 @@ module.exports = {
 	semi: false,
 	printWidth: 140,
 	tabWidth: 2,
-	useTabs: true,
+	useTabs: false,
 	arrowParens: 'avoid',
 }
