@@ -90,7 +90,7 @@ const LegacyInput = makeLegacyField(BaseInput, {
 })
 LegacyInput.defaultProps = {defaultSubmitStrategy: 'blur'}
 
-const Switch = buildField(RawSwitch, {className: 'eitje-switch-container', clearIcon: false})
+const Switch = buildField(RawSwitch, {className: 'eitje-switch-container', clearIcon: false, inputPosition: 'right'})
 const LegacySwitch = makeLegacyField(RawSwitch, {
   className: 'eitje-switch-container',
 })
