@@ -16,14 +16,15 @@ import {
   useForm,
   config,
   t,
+  NewForm,
 } from '@eitje/form'
 import utils from '@eitje/utils'
 
-const _buildField = (components) => (props) => {
+const _buildField = components => props => {
   const {Full, Form, Base, New} = components
   const {form = true, decorated = true, raw} = props
   const {form: formInstance} = useForm()
-  const isNew = formInstance?.constructor?.name == 'NewForm'
+  const isNew = formInstance instanceof NewForm
   if (isNew) return <New {...props} newForm />
   if (raw) return <Base {...props} />
   if (form && decorated) return <Full {...props} />
@@ -40,24 +41,24 @@ const buildField = (Base, opts = {}) => {
   })
 }
 
-const RawSwitch = (props) => {
+const RawSwitch = props => {
   const {value} = props
   return <AntSwitch className="eitje-switch" {...props} checked={!!value} />
 }
 
-const RawCheckbox = (props) => {
+const RawCheckbox = props => {
   const {value, innerRef, onChange = _.noop} = props
-  return <AntCheckbox ref={innerRef} className="eitje-checkbox" {...props} onChange={(e) => onChange(e.target.checked)} checked={!!value} />
+  return <AntCheckbox ref={innerRef} className="eitje-checkbox" {...props} onChange={e => onChange(e.target.checked)} checked={!!value} />
 }
 
-const _withIcon = (props) => !props.selectAll
+const _withIcon = props => !props.selectAll
 
-const defaultDropdownValue = (props) => {
+const defaultDropdownValue = props => {
   if (props.multiple) return []
   return null
 }
 
-const getDropdownPickerClassName = (props) => {
+const getDropdownPickerClassName = props => {
   return utils.makeCns('eitje-dropdown-container', props.multiple && 'eitje-dropdown-container-multiple')
 }
 
@@ -68,36 +69,67 @@ const DropdownPicker = buildField(RawDropdownPicker, {
   defaultPickerValue: defaultDropdownValue,
 })
 
-const LegacyDropdownPicker = makeLegacyField(RawDropdownPicker, {className: 'eitje-dropdown-container'})
+const LegacyDropdownPicker = makeLegacyField(RawDropdownPicker, {
+  className: 'eitje-dropdown-container',
+})
 
-const getInputProps = (props) => {
+const getInputProps = props => {
   const className = utils.makeCns(
     'eitje-input-container',
     props.textarea && 'eitje-input-container-textarea',
     props.password && 'eitje-input-container-password',
   )
 
-  return {className, withClearIcon: true, clearIcon: true}
+  return {className, icon: false, withClearIcon: true, clearIcon: true}
 }
 
 const Input = buildField(BaseInput, getInputProps)
 Input.defaultProps = {defaultSubmitStrategy: 'blur'}
-const LegacyInput = makeLegacyField(BaseInput, {className: 'eitje-input-container'})
+const LegacyInput = makeLegacyField(BaseInput, {
+  className: 'eitje-input-container',
+})
 LegacyInput.defaultProps = {defaultSubmitStrategy: 'blur'}
 
-const Switch = buildField(RawSwitch, {className: 'eitje-switch-container'})
-const LegacySwitch = makeLegacyField(RawSwitch, {className: 'eitje-switch-container'})
+const Switch = buildField(RawSwitch, {className: 'eitje-switch-container', clearIcon: false, inputPosition: 'right'})
+const LegacySwitch = makeLegacyField(RawSwitch, {
+  className: 'eitje-switch-container',
+})
 
-const Checkbox = buildField(RawCheckbox, {className: 'eitje-checkbox-container', withIcon: false})
-const LegacyCheckbox = makeLegacyField(RawCheckbox, {className: 'eitje-checkbox-container'})
+const Checkbox = buildField(RawCheckbox, {
+  className: 'eitje-checkbox-container',
+  withIcon: false,
+  clearIcon: false,
+})
+const LegacyCheckbox = makeLegacyField(RawCheckbox, {
+  className: 'eitje-checkbox-container',
+})
 
-const DatePicker = buildField(RawDatePicker, {className: 'eitje-date-picker-container'})
-const LegacyDatePicker = makeLegacyField(RawDatePicker, {className: 'eitje-date-picker-container'})
+const DatePicker = buildField(RawDatePicker, {
+  className: 'eitje-date-picker-container',
+  icon: true,
+})
+const LegacyDatePicker = makeLegacyField(RawDatePicker, {
+  className: 'eitje-date-picker-container',
+})
 
-const TimePicker = buildField(RawTimePicker, {className: 'eitje-time-picker-container'})
-const LegacyTimePicker = makeLegacyField(RawTimePicker, {className: 'eitje-time-picker-container'})
+const TimePicker = buildField(RawTimePicker, {
+  className: 'eitje-time-picker-container',
+  icon: true,
+})
+const LegacyTimePicker = makeLegacyField(RawTimePicker, {
+  className: 'eitje-time-picker-container',
+})
 
-const FormRow = (props) => <config.Layout {...props} className="eitje-form-3-row" />
+const FormRow = ({children, ...props}) => {
+  const childrenAmt = utils.alwaysArray(children).length
+  const columns = '1fr '.repeat(childrenAmt).trimEnd()
+
+  return (
+    <div {...props} style={{'--columns': columns}} className="eitje-form-3-row">
+      {children}
+    </div>
+  )
+}
 const NewFormRow = FormRow
 
 export {
