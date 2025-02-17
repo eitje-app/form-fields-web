@@ -1,6 +1,6 @@
 {
   "name": "@eitje/form-fields-web",
-  "version": "2.0.0-input-position",
+  "version": "2.0.0",
   "description": "Beautiful & feature-packed form fields for the web",
   "main": "index.js",
   "scripts": {
