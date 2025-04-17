@@ -1,31 +1,17 @@
-import React, {Component, Fragment, useRef} from 'react'
+import React from 'react'
 import {Switch as AntSwitch, Checkbox as AntCheckbox} from 'antd'
 import RawDropdownPicker from './fields/dropdown'
 import RawTimePicker from './fields/time_picker'
 import RawDatePicker from './fields/date_picker'
-import PopoverPicker from './fields/popover_picker'
 import BaseInput from './fields/input'
-import {
-  useFormField,
-  usePicker,
-  makeField,
-  makeNewField,
-  makeLegacyField,
-  makeNewRegisteredField,
-  makeRegisteredField,
-  useForm,
-  config,
-  t,
-  NewForm,
-} from '@eitje/form'
+import {makeField, makeNewField, useFormSelector, makeLegacyField, makeRegisteredField} from '@eitje/form'
 import utils from '@eitje/utils'
 
 const _buildField = components => props => {
   const {Full, Form, Base, New} = components
   const {form = true, decorated = true, raw} = props
-  const {form: formInstance} = useForm()
-  const isNew = formInstance instanceof NewForm
-  if (isNew) return <New {...props} newForm />
+  const newForm = useFormSelector('newForm')
+  if (newForm) return <New {...props} newForm />
   if (raw) return <Base {...props} />
   if (form && decorated) return <Full {...props} />
   if (form) return <Form {...props} />
