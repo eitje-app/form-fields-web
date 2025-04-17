@@ -69,39 +69,45 @@ const getInputProps = props => {
   return {className, icon: false, withClearIcon: true, clearIcon: true}
 }
 
-const Input = buildField(BaseInput, getInputProps)
+let Input = buildField(BaseInput, getInputProps)
+Input = React.memo(Input, _.isEqual)
 Input.defaultProps = {defaultSubmitStrategy: 'blur'}
+
 const LegacyInput = makeLegacyField(BaseInput, {
   className: 'eitje-input-container',
 })
 LegacyInput.defaultProps = {defaultSubmitStrategy: 'blur'}
 
-const Switch = buildField(RawSwitch, {className: 'eitje-switch-container', clearIcon: false, inputPosition: 'right'})
+let Switch = buildField(RawSwitch, {className: 'eitje-switch-container', clearIcon: false, inputPosition: 'right'})
+Switch = React.memo(Switch, _.isEqual)
 const LegacySwitch = makeLegacyField(RawSwitch, {
   className: 'eitje-switch-container',
 })
 
-const Checkbox = buildField(RawCheckbox, {
+let Checkbox = buildField(RawCheckbox, {
   className: 'eitje-checkbox-container',
   withIcon: false,
   clearIcon: false,
 })
+Checkbox = React.memo(Checkbox, _.isEqual)
 const LegacyCheckbox = makeLegacyField(RawCheckbox, {
   className: 'eitje-checkbox-container',
 })
 
-const DatePicker = buildField(RawDatePicker, {
+let DatePicker = buildField(RawDatePicker, {
   className: 'eitje-date-picker-container',
   icon: true,
 })
+DatePicker = React.memo(DatePicker, _.isEqual)
 const LegacyDatePicker = makeLegacyField(RawDatePicker, {
   className: 'eitje-date-picker-container',
 })
 
-const TimePicker = buildField(RawTimePicker, {
+let TimePicker = buildField(RawTimePicker, {
   className: 'eitje-time-picker-container',
   icon: true,
 })
+TimePicker = React.memo(TimePicker, _.isEqual)
 const LegacyTimePicker = makeLegacyField(RawTimePicker, {
   className: 'eitje-time-picker-container',
 })
