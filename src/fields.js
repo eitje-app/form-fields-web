@@ -21,11 +21,14 @@ import {
 import utils from '@eitje/utils'
 
 const _buildField = components => props => {
-  const {Full, Form, Base, New} = components
+  const {Full, Form, Base, NewWithoutDecoration, New} = components
   const {form = true, decorated = true, raw} = props
   const {form: formInstance} = useForm()
   const isNew = formInstance instanceof NewForm
-  if (isNew) return <New {...props} newForm />
+  if (isNew) {
+    if (decorated) return <New {...props} newForm />
+    return <NewWithoutDecoration {...props} newForm />
+  }
   if (raw) return <Base {...props} />
   if (form && decorated) return <Full {...props} />
   if (form) return <Form {...props} />
@@ -37,6 +40,7 @@ const buildField = (Base, opts = {}) => {
     Full: makeField(Base, opts),
     Form: makeRegisteredField(Base),
     New: makeNewField(Base, opts),
+    NewWithoutDecoration: makeNewRegisteredField(Base),
     Base,
   })
 }
