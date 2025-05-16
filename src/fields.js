@@ -4,14 +4,17 @@ import RawDropdownPicker from './fields/dropdown'
 import RawTimePicker from './fields/time_picker'
 import RawDatePicker from './fields/date_picker'
 import BaseInput from './fields/input'
-import {makeField, makeNewField, useFormSelector, makeLegacyField, makeRegisteredField} from '@eitje/form'
+import {makeField, makeNewField, useFormSelector, makeNewRegisteredField, makeLegacyField, makeRegisteredField} from '@eitje/form'
 import utils from '@eitje/utils'
 
 const _buildField = components => props => {
-  const {Full, Form, Base, New} = components
+  const {Full, Form, Base, NewWithoutDecoration, New} = components
   const {form = true, decorated = true, raw} = props
-  const newForm = useFormSelector('newForm')
-  if (newForm) return <New {...props} newForm />
+  const isNew = useFormSelector('newForm')
+  if (isNew) {
+    if (decorated) return <New {...props} newForm />
+    return <NewWithoutDecoration {...props} newForm />
+  }
   if (raw) return <Base {...props} />
   if (form && decorated) return <Full {...props} />
   if (form) return <Form {...props} />
@@ -23,6 +26,7 @@ const buildField = (Base, opts = {}) => {
     Full: makeField(Base, opts),
     Form: makeRegisteredField(Base),
     New: makeNewField(Base, opts),
+    NewWithoutDecoration: makeNewRegisteredField(Base),
     Base,
   })
 }
