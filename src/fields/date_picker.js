@@ -104,7 +104,7 @@ const DatePicker = props => {
   const defPickerValue = _defPickerValue && moment(_defPickerValue, _defaultFormat)
 
   if (_.isFunction(renderExtraFooter)) {
-    condProps['renderExtraFooter'] = () => renderExtraFooter({value: val, onChange, startValue: formData['start_date'], picker})
+    condProps['renderExtraFooter'] = () => renderExtraFooter({value: val, onChange, startValue: formData?.['start_date'], picker})
     condProps['dropdownClassName'] = 'has-extra-footer'
   }
 
