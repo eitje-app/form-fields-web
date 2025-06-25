@@ -117,7 +117,7 @@ const LegacyTimePicker = makeLegacyField(RawTimePicker, {
 })
 
 const FormRow = ({children, ...props}) => {
-  const childrenAmt = utils.alwaysArray(children).length
+  const childrenAmt = React.Children.toArray(children).length
   const columns = '1fr '.repeat(childrenAmt).trimEnd()
 
   return (
