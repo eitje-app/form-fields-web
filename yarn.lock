@@ -926,6 +926,13 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@eitje/form@3.1.21":
+  version "3.1.21"
+  resolved "https://registry.yarnpkg.com/@eitje/form/-/form-3.1.21.tgz#81c31ae5dc0a07e9cd68aaf7257abcdb1f1d7176"
+  integrity sha512-eA90OPUny14ZOV/cdAGHK69c3AIZIuFxE6U/Km6KHqjjXwV5OFfnH5dPU3cQu60c77/XZZFArr++UGx5CKkdcg==
+  dependencies:
+    password-validator "2.2.0"
+
 "@nicolo-ribaudo/chokidar-2@^2.1.8":
   version "2.1.8"
   resolved "https://registry.yarnpkg.com/@nicolo-ribaudo/chokidar-2/-/chokidar-2-2.1.8.tgz#eef8d9b47e8dc589499f14d656e8d2dd978c3d14"
@@ -1856,6 +1863,11 @@ pascalcase@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/pascalcase/-/pascalcase-0.1.1.tgz#b363e55e8006ca6fe21784d2db22bd15d7917f14"
   integrity sha1-s2PlXoAGym/iF4TS2yK9FdeRfxQ=
+
+password-validator@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/password-validator/-/password-validator-2.2.0.tgz#3cfe736a074e30fb08d767af0f9d4586ee6ea592"
+  integrity sha512-6eTZImxHZTUqDk569Z450RAa63nhJaMV1YosZezoPvmi3lmWb6BJzdk2JxDEnQffvXz4AWG5H/8a991eQ5uF2w==
 
 path-dirname@^1.0.0:
   version "1.0.2"
