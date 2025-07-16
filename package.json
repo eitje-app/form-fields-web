@@ -1,11 +1,20 @@
 {
   "name": "@eitje/form-fields-web",
-  "version": "2.0.1-context-selector.7",
+  "version": "2.0.1-context-selector.8",
   "description": "Beautiful & feature-packed form fields for the web",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "module": "dist/esm/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/index.js"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel src -d dist"
+    "build:cjs": "BABEL_ENV=cjs babel src --out-dir dist",
+    "build:esm": "BABEL_ENV=esm babel src --out-dir dist/esm",
+    "build": "rm -rf dist && npm run build:cjs && npm run build:esm"
   },
   "repository": {
     "type": "git",
