@@ -1,6 +1,6 @@
 {
   "name": "@eitje/form-fields-web",
-  "version": "2.0.1-context-selector.10",
+  "version": "2.0.1-context-selector.11",
   "description": "Beautiful & feature-packed form fields for the web",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -27,7 +27,8 @@
   "homepage": "https://github.com/eitje-app/form-fields-web#readme",
   "peerDependencies": {
     "react": ">=17 <20",
-    "react-dom": ">=17 <20"
+    "react-dom": ">=17 <20",
+    "@eitje/form": "3.1.24"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
@@ -39,7 +40,6 @@
     "@babel/preset-react": "^7.12.1"
   },
   "dependencies": {
-    "moment": "2.29.1",
-    "@eitje/form": "3.1.24"
+    "moment": "2.29.1"
   }
 }
