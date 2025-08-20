@@ -1,6 +1,6 @@
 {
   "name": "@eitje/form-fields-web",
-  "version": "2.0.1-context-selector.9",
+  "version": "2.0.1-context-selector.10",
   "description": "Beautiful & feature-packed form fields for the web",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -40,6 +40,6 @@
   },
   "dependencies": {
     "moment": "2.29.1",
-    "@eitje/form": "3.1.23"
+    "@eitje/form": "3.1.24"
   }
 }

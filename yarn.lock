@@ -926,10 +926,10 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@eitje/form@3.1.23":
-  version "3.1.23"
-  resolved "https://registry.yarnpkg.com/@eitje/form/-/form-3.1.23.tgz#51b243a174c89ecf7b07ce58ae04f69dcbe0ecdc"
-  integrity sha512-4ZVB7Bd+Ak7DrgtQs0dMK5hOEOJIlbKLxaJS9ICMUFw0lu0ruQ4BWZw2CDsT/nyuHDvYxNKVO66OyeR2W0sc7g==
+"@eitje/form@3.1.24":
+  version "3.1.24"
+  resolved "https://registry.yarnpkg.com/@eitje/form/-/form-3.1.24.tgz#534f7dc475c201c7445338fb699171cbc16a7590"
+  integrity sha512-wlQWUo59oFkKgJ+1uHp7HjRpf+y7uQM5rJsBcdojwX4/IqNXi8OnctDe3ZY1/aJ9DI+GCYGaoI5INdp78xF7Vg==
   dependencies:
     "@eitje/utils" "1.0.38"
     "@eitje/web_utils" "1.0.15-alpha"
